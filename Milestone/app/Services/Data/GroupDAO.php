@@ -12,7 +12,9 @@ use ErrorException;
 use Exception;
 use App\Models\GroupModel;
 use App\Models\GroupMemberModel;
-
+//Chris King
+//3/23/2021
+//GroupDAO OOP 
 class GroupDAO
 {
     // Define conn string
@@ -26,7 +28,7 @@ class GroupDAO
     
    
     
-    
+    //get all groups from db
     public function getAllGroups()
     {
             try {
@@ -65,7 +67,7 @@ class GroupDAO
                 echo $e->getMessage();
             }
     }
-    
+    //get single group by id
     public function getGroup($id)
     {
         try {
@@ -104,7 +106,7 @@ class GroupDAO
             echo $e->getMessage();
         }
     }
-    
+    //get member count of group
     public function getMemberCount($id)
     {
         try {
@@ -141,6 +143,7 @@ class GroupDAO
             echo $e->getMessage();
         }
     }
+    //add group to database
     public function addGroup(GroupModel $group)
     {
         try
@@ -203,7 +206,7 @@ class GroupDAO
         }
     }
     
-    
+    //delete group from database cascade
     public function deleteGroup($id)
     {
         try {
@@ -229,7 +232,7 @@ class GroupDAO
             echo $e->getMessage();
         }
     }
-    
+    //join group/ add group member to database
     public function joinGroup($id, $name, $groupID)
     {
         try {
@@ -254,7 +257,7 @@ class GroupDAO
             echo $e->getMessage();
         }
     }
-    
+    //remove group member from database
     public function leaveGroup($groupID,$memberID)
     {
         try {
@@ -280,6 +283,7 @@ class GroupDAO
         }
         
     }
+    //retrieve all members of group from database
     public function getMembers($groupID)
     {
         try 
@@ -322,7 +326,7 @@ class GroupDAO
             $e->getMessage();
         }
     }
-    
+    //set exists variable for group member model
     public function groupMemberExists($groupID, $memberID)
     {
         try

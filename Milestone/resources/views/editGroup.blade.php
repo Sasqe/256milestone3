@@ -1,5 +1,6 @@
+
 @if(!Session::has('userid'))
-      <script>window.location = "login";</script>
+      <scipt>window.location = "login";</script>
 @else
 @extends('layouts.app')
 
