@@ -16,9 +16,11 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Session;
 use App\Models\UserModel;
+use App\Models\GroupModel;
 use App\Models\PortfolioModel;
 use App\Services\Business\AdminService;
 use App\Services\Business\PortfolioService;
+use App\Services\Business\GroupService;
 
 class AdminController extends Controller
 {
@@ -233,6 +235,129 @@ class AdminController extends Controller
         }
         
     }
+    //Admin group view
+    public function adminGroup()
+    {
+        $bs = new GroupService();
+        $groupArr = $bs->getAll();
+        $groups = Array();
+        foreach($groupArr as $group)
+        {
+            $groupID = $group->getGroupID();
+            $groupName = $group->getGroupName();
+            $interest = $group->getInterest();
+            $type = $group->getType();
+            $memberCount = $bs->getMemberCount($groupID);
+            $description = $group->getDescription();
+            $exists = true;
+            $newGroup = new GroupModel($groupID, $groupName, $interest, $type, $memberCount, $description, $exists);
+            array_push($groups, $newGroup);
+        }
+        return view('groupAdmin')->with('groups', $groups);
+    }
+    //Admin edit group view
+    public function editGroupView(Request $request)
+    {
+        $groupID = request()->get('groupID');
+        $bs = new GroupService();
+        
+        $group = $bs->getGroup($groupID);
+        
+        return view('editGroup')->with('group', $group);
+    }
+    //Admin edit group data post
+    public function editGroup (Request $request)
+    {
+        $groupID = request()->get('groupID');
+        $groupName = request()->get('groupName');
+        $interest = request()->get('interest');
+        $type = request()->get('type');
+        $description = request()->get('description');
+        
+        $bs = new GroupService();
+        $memberCount = $bs->getMemberCount($groupID);
+        
+        $group = new GroupModel($groupID, $groupName, $interest, $type, $memberCount, $description, true);
+        
+        $bs->editGroup($group);
+        
+        
+        $groupArr = $bs->getAll();
+        $groups = Array();
+        foreach($groupArr as $group)
+        {
+            $groupID = $group->getGroupID();
+            $groupName = $group->getGroupName();
+            $interest = $group->getInterest();
+            $type = $group->getType();
+            $memberCount = $bs->getMemberCount($groupID);
+            $description = $group->getDescription();
+            $exists = true;
+            $newGroup = new GroupModel($groupID, $groupName, $interest, $type, $memberCount, $description, $exists);
+            array_push($groups, $newGroup);
+        }
+        return view('groupAdmin')->with('groups', $groups);
+    }
+    //Admin add a new group
+    public function addGroup(Request $request)
+    {
+        $groupName = request()->get('groupName');
+        $interest = request()->get('interest');
+        $type = request()->get('type');
+        $description = request()->get('description');
+        
+        $temp = new GroupModel(0, $groupName, $interest, $type, 0, $description, false);
+        
+        $bs = new GroupService();
+        $bs->addGroup($temp);
+        
+        $groupArr = $bs->getAll();
+        $groups = Array();
+        foreach($groupArr as $group)
+        {
+            $groupID = $group->getGroupID();
+            $groupName = $group->getGroupName();
+            $interest = $group->getInterest();
+            $type = $group->getType();
+            $memberCount = $bs->getMemberCount($groupID);
+            $description = $group->getDescription();
+            $exists = true;
+            $newGroup = new GroupModel($groupID, $groupName, $interest, $type, $memberCount, $description, $exists);
+            array_push($groups, $newGroup);
+        }
+        return view('groupAdmin')->with('groups', $groups);
+    }
+        //Admin delete a group
+        public function deleteGroup(Request $request)
+        {
+            $groupID = request()->get('groupID');
+            
+            $bs = new GroupService();
+            
+            $bs->deleteGroup($groupID);
+            
+            $groupArr = $bs->getAll();
+            $groups = Array();
+            foreach($groupArr as $group)
+            {
+                $groupID = $group->getGroupID();
+                $groupName = $group->getGroupName();
+                $interest = $group->getInterest();
+                $type = $group->getType();
+                $memberCount = $bs->getMemberCount($groupID);
+                $description = $group->getDescription();
+                $exists = true;
+                $newGroup = new GroupModel($groupID, $groupName, $interest, $type, $memberCount, $description, $exists);
+                array_push($groups, $newGroup);
+            }
+            return view('groupAdmin')->with('groups', $groups);
+        }
+        
+        
+        
+    
+    
+    
 //     <!-- ------- push validated models into new model structure ------- --!>
     public function v_push($data, PortfolioModel $portfolio){
         if ($data->getEducation() != null){

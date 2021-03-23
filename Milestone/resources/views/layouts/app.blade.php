@@ -62,6 +62,9 @@
                                   <li class="nav-item">
                                     <a class="nav-link" href="{{ route('portfolio') }}">{{ __('Portfolio') }}</a>
                                 </li>
+                                 <li class="nav-item">
+                            	<a class="nav-link" href="{{ route('groups') }} ">{{__('Groups')}}</a>
+                            </li>
 								@endif
                              
               <!--                 ------------------------------Admin Navbar---------------------------------------             -->
@@ -69,7 +72,11 @@
                                    @if (Session::has('role') && Session::get('role') == 1) 
                                      <li class="nav-item">
                                     <a class="nav-link" href="{{ route('displayadmin') }}">{{ __('Admin') }}</a>
-                                
+                                </li>
+                                </li>
+                             <li class="nav-item">
+                            	<a class="nav-link" href="adminGroup">{{__('Groups Admin')}}</a>
+                            </li>
                                 @endif
                                 
  <!--                 ------------------------------Logout---------------------------------------             -->

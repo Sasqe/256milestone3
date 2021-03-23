@@ -12,13 +12,14 @@ class ProfileDAO{
     private $password = "root";
     private $dbname = "milestone";
     private $dbQuery;
+    private $port = 8889;
     
          
         
     
     public function profile(UserModel $credentials){
         try {
-            $conn = mysqli_connect($this->servername, $this->username, $this->password, $this->dbname);
+            $conn = mysqli_connect($this->servername, $this->username, $this->password, $this->dbname, $this->port);
             $fn = $credentials->getUsername();
             $email = $credentials->getEmail();
             $pass = $credentials->getPassword();

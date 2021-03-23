@@ -40,3 +40,30 @@ Route::get('/', function () {
     Route::get('/viewuser', function(){
         return view('admin\viewuser');
     });
+    
+        Route::get('/adminGroup', 'AdminController@adminGroup');
+        
+        Route::get('/addGroupView', function(){
+            return view('addGroup');
+        });
+            
+            Route::post('/addGroup', 'AdminController@addGroup');
+            
+            Route::post('/viewGroup', 'AdminController@viewGroupMembers');
+            
+            Route::post('/editGroupView','AdminController@editGroupView');
+            
+            Route::post('/editGroup', 'AdminController@editGroup');
+            
+            Route::post('/deleteGroup', 'AdminController@deleteGroup');
+            
+            Route::post('/getMembers', 'AdminController@getMembers');
+            //================User Group Controllers=======================
+            
+            Route::get('/groups', 'GroupController@userGroupView')->name('groups');
+            
+            Route::post('/joinGroup', 'GroupController@joinGroup')->name('joinGroup');
+            
+            Route::post('/leaveGroup', 'GroupController@leaveGroup')->name('leaveGroup');
+            
+            Route::post('/viewGroup', 'GroupController@viewGroupMembers');

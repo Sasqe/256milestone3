@@ -94,7 +94,6 @@ public function adminedit($credentials, $portfolios){
             
             if ($this->admin->editHistory($value))
                 $counter = true;
-            
             else 
                 $counter = false;
             

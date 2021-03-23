@@ -17,7 +17,7 @@ class RegisterDAO{
     
     public function register(UserModel $credentials){
         try {
-            $conn = mysqli_connect($this->servername, $this->username, $this->password, $this->dbname);
+            $conn = mysqli_connect($this->servername, $this->username, $this->password, $this->dbname, $this->port);
             $fn = $credentials->getFirstname();
             $ln = $credentials->getLastname();
             $un = $credentials->getUsername();

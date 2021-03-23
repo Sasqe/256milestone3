@@ -13,13 +13,14 @@ class LoginDAO{
     private $password = "root";
     private $dbname = "milestone";
     private $dbQuery;
+    private $port = 8889;
     
     
     
     
     public function login(UserModel $credentials){
         try {
-            $conn = mysqli_connect($this->servername, $this->username, $this->password, $this->dbname);
+            $conn = mysqli_connect($this->servername, $this->username, $this->password, $this->dbname, $this->port);
             
             $email = $credentials->getEmail();
             $pass = $credentials->getPassword();
@@ -56,6 +57,7 @@ class LoginDAO{
                     session(['userid' => $loggedid]);
                     session(['role' => $loggedrole]);
                     session(['username' => $loggedname]);
+                    session(['name' => $p->getFirstname()]);
                     if ($loggedrole == 0){
                         
                         return -1;

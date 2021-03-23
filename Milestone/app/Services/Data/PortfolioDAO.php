@@ -19,7 +19,7 @@ class PortfolioDAO{
 //  <!---------------------- DO HISTORY -------------------!> 
     public function doHistory(PortfolioModel $credentials){
         try {
-            $conn = mysqli_connect($this->servername, $this->username, $this->password, $this->dbname);
+            $conn = mysqli_connect($this->servername, $this->username, $this->password, $this->dbname, $this->port);
             $history = $credentials->getHistory();
             
             $userid = $credentials->getUserID();
@@ -46,7 +46,7 @@ class PortfolioDAO{
 //      <!---------------------- DELETE HISTORY -------------------!> 
         public function deleteHistory($deleteid){
             try {
-                $conn = mysqli_connect($this->servername, $this->username, $this->password, $this->dbname);
+                $conn = mysqli_connect($this->servername, $this->username, $this->password, $this->dbname, $this->port);
                 $stmt = $conn->prepare("DELETE FROM history WHERE history.HistoryID = ? LIMIT 1");
                 
                 if (!$stmt){
@@ -73,7 +73,7 @@ class PortfolioDAO{
 //      <!---------------------- DO SKILL -------------------!> 
         public function doSkill(PortfolioModel $credentials){
             try {
-                $conn = mysqli_connect($this->servername, $this->username, $this->password, $this->dbname);
+                $conn = mysqli_connect($this->servername, $this->username, $this->password, $this->dbname, $this->port);
                 $skill = $credentials->getSkill();
                 
                 $userid = $credentials->getUserID();
@@ -100,7 +100,7 @@ class PortfolioDAO{
 //      <!---------------------- DELETE SKILL -------------------!>
         public function deleteSkill($deleteid){
             try {
-                $conn = mysqli_connect($this->servername, $this->username, $this->password, $this->dbname);
+                $conn = mysqli_connect($this->servername, $this->username, $this->password, $this->dbname, $this->port);
                 $stmt = $conn->prepare("DELETE FROM skills WHERE skills.skillsID = ? LIMIT 1");
                 
                 if (!$stmt){
@@ -128,7 +128,7 @@ class PortfolioDAO{
         //      <!---------------------- DO SKILL -------------------!>
         public function doEducation(PortfolioModel $credentials){
             try {
-                $conn = mysqli_connect($this->servername, $this->username, $this->password, $this->dbname);
+                $conn = mysqli_connect($this->servername, $this->username, $this->password, $this->dbname, $this->port);
                 $education = $credentials->getEducation();
                 
                 $userid = $credentials->getUserID();
@@ -154,7 +154,7 @@ class PortfolioDAO{
         }
         public function deleteEducation($deleteid){
             try {
-                $conn = mysqli_connect($this->servername, $this->username, $this->password, $this->dbname);
+                $conn = mysqli_connect($this->servername, $this->username, $this->password, $this->dbname, $this->port);
                 $stmt = $conn->prepare("DELETE FROM education WHERE education.educationID = ? LIMIT 1");
                 
                 if (!$stmt){

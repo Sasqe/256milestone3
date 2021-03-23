@@ -15,9 +15,10 @@ class DAO{
     private $password = "root";
     private $dbname = "milestone";
     private $dbQuery;
+    private $port = 8889;
     
     public function __construct(){
-        $this->conn = mysqli_connect($this->servername, $this->username, $this->password, $this->dbname);        
+        $this->conn = mysqli_connect($this->servername, $this->username, $this->password, $this->dbname, $this->port);        
     }
 //----------------------------------- LOGIN --------------------------------------------------------
     public function login(UserModel $credentials){
@@ -45,7 +46,7 @@ class DAO{
     //----------------------------------- SHOW ALL USERS --------------------------------------------------------
     public function showAll(){
         try {
-            $conn = mysqli_connect($this->servername, $this->username, $this->password, $this->dbname);
+            $conn = mysqli_connect($this->servername, $this->username, $this->password, $this->dbname, $this->port);
             
             $stmt = $conn->prepare("SELECT UserID, firstname, lastname, Username, email, Password, role, age, race, sex, address
                              FROM users");
@@ -80,7 +81,7 @@ class DAO{
     //----------------------------------- DELETE USERS --------------------------------------------------------
     public function deleteUser($deleteid){
         try {
-        $conn = mysqli_connect($this->servername, $this->username, $this->password, $this->dbname);
+            $conn = mysqli_connect($this->servername, $this->username, $this->password, $this->dbname, $this->port);
         $stmt = $conn->prepare("DELETE FROM users WHERE UserID = ? LIMIT 1");
         
         if (!$stmt){
@@ -110,7 +111,7 @@ class DAO{
             $identity = $value->getId();
             $history = $value->getHistory();
            
-            $conn = mysqli_connect($this->servername, $this->username, $this->password, $this->dbname);
+            $conn = mysqli_connect($this->servername, $this->username, $this->password, $this->dbname, $this->port);
             $stmt = $conn->prepare("UPDATE history SET history='".$history ."' WHERE HistoryID = ? LIMIT 1");
             
             if (!$stmt){
@@ -141,7 +142,7 @@ class DAO{
             $identity = $value->getId();
             $skill = $value->getSkill();
             
-            $conn = mysqli_connect($this->servername, $this->username, $this->password, $this->dbname);
+            $conn = mysqli_connect($this->servername, $this->username, $this->password, $this->dbname, $this->port);
             $stmt = $conn->prepare("UPDATE skills SET skill='". $skill ."' WHERE SkillsID = ? LIMIT 1");
             
             if (!$stmt){
@@ -172,7 +173,7 @@ class DAO{
             $identity = $value->getId();
             $education = $value->getEducation();
             
-            $conn = mysqli_connect($this->servername, $this->username, $this->password, $this->dbname);
+            $conn = mysqli_connect($this->servername, $this->username, $this->password, $this->dbname, $this->port);
             $stmt = $conn->prepare("UPDATE education SET education='". $education ."' WHERE EducationID = ? LIMIT 1");
             
             if (!$stmt){
@@ -213,7 +214,7 @@ class DAO{
             $sex = $credentials->getSex();
             $address = $credentials->getAddress();
             
-            $conn = mysqli_connect($this->servername, $this->username, $this->password, $this->dbname);
+            $conn = mysqli_connect($this->servername, $this->username, $this->password, $this->dbname, $this->port);
             $stmt = $conn->prepare("UPDATE users SET firstname='".$fn."', lastname='".$ln."', Username='".$un."',email='".$email."',password='".$pass."',role='".$role."',
                                      age='".$age."', race = '". $race."', sex='". $sex."', address='". $address."' WHERE UserID = ? LIMIT 1");
             
@@ -240,7 +241,7 @@ class DAO{
     }
     public function findById($identity){
         try {
-            $conn = mysqli_connect($this->servername, $this->username, $this->password, $this->dbname);
+            $conn = mysqli_connect($this->servername, $this->username, $this->password, $this->dbname, $this->port);
             
             $stmt = $conn->prepare("SELECT UserID, firstname, lastname, Username, email, Password, role, age, race, sex, address
                              FROM users WHERE UserID = ?");
@@ -277,7 +278,7 @@ class DAO{
     public function suspendUser($id){
         try {
            
-            $conn = mysqli_connect($this->servername, $this->username, $this->password, $this->dbname);
+            $conn = mysqli_connect($this->servername, $this->username, $this->password, $this->dbname, $this->port);
             $stmt = $conn->prepare("UPDATE users SET role='". 0 ."' WHERE UserID = ? LIMIT 1");
             
             if (!$stmt){
@@ -304,7 +305,7 @@ class DAO{
 //----------------------------------- RETRIEVE HISTORY --------------------------------------------------------
     public function retrieveHistory($id){
         try {
-            $conn = mysqli_connect($this->servername, $this->username, $this->password, $this->dbname);
+            $conn = mysqli_connect($this->servername, $this->username, $this->password, $this->dbname, $this->port);
             
             $stmt = $conn->prepare("SELECT * 
                              FROM history
@@ -341,7 +342,7 @@ class DAO{
     //----------------------------------- RETRIEVE SKILLS --------------------------------------------------------
     public function retrieveSkills($id){
         try {
-            $conn = mysqli_connect($this->servername, $this->username, $this->password, $this->dbname);
+            $conn = mysqli_connect($this->servername, $this->username, $this->password, $this->dbname, $this->port);
             
             $stmt = $conn->prepare("SELECT *
                              FROM skills
@@ -378,7 +379,7 @@ class DAO{
 //----------------------------------- RETRIEVE EDUCATION --------------------------------------------------------
     public function retrieveEducation($id){
         try {
-            $conn = mysqli_connect($this->servername, $this->username, $this->password, $this->dbname);
+            $conn = mysqli_connect($this->servername, $this->username, $this->password, $this->dbname, $this->port);
             
             $stmt = $conn->prepare("SELECT *
                              FROM education
@@ -417,7 +418,7 @@ class DAO{
 //----------------------------------- RETRIEVE USER --------------------------------------------------------
     public function retrieveUser($id){
         try {
-            $conn = mysqli_connect($this->servername, $this->username, $this->password, $this->dbname);
+            $conn = mysqli_connect($this->servername, $this->username, $this->password, $this->dbname, $this->port);
             
             $stmt = $conn->prepare("SELECT *
                              FROM users
